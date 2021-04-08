@@ -65,7 +65,7 @@ public class Author {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", books=" + books +
+//                ", books=" + books +
                 '}';
     }
 
@@ -82,7 +82,7 @@ public class Author {
 
     @Override
     public int hashCode() {
-        System.out.println("Author.hashcode()");
+        System.out.println("Author.hashcode()" + (getId() ^ (getId() >>> 32)));
         return (int) (getId() ^ (getId() >>> 32));
     }
 }

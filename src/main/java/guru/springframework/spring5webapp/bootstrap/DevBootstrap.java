@@ -32,28 +32,36 @@ public class DevBootstrap implements ApplicationListener <ContextRefreshedEvent>
 
         System.out.println("start initData");
         // Eric Evans Domain Driven Design
-        Author eric = new Author("Eric", "Evans");
-        Book ddd = new Book("Domain Driven Design", "123456");
         Publisher springer = new Publisher("Springer", "5th Avenue", "New York", "NewYork", (short)2468);
+        publisherRepository.save(springer);
+
+        Author eric = new Author("Eric", "Evans");
+        authorRepository.save(eric);
+
+        Book ddd = new Book("Domain Driven Design", "123456");
+        bookRepository.save(ddd);
+
         springer.getBooks().add(ddd);
+        publisherRepository.save(springer);
         eric.getBooks().add(ddd);
+        authorRepository.save(eric);
         ddd.getAuthors().add(eric);
         ddd.setPublisher(springer);
-
-        authorRepository.save(eric);
-        publisherRepository.save(springer);
         bookRepository.save(ddd);
+
 
         // Rod Johnson
         Author rod = new Author("Rod", "Johnson");
+        authorRepository.save(rod);
         Book j2ee = new Book("J2EE Development without EJB", "13579");
+        bookRepository.save(j2ee);
         rod.getBooks().add(j2ee);
+        authorRepository.save(rod);
         j2ee.getAuthors().add(rod);
         j2ee.setPublisher(springer);
-        springer.getBooks().add(j2ee);
-
-        authorRepository.save(rod);
         bookRepository.save(j2ee);
+        springer.getBooks().add(j2ee);
+        publisherRepository.save(springer);
 
 
         System.out.println("Authors in DB: " + authorRepository.count());

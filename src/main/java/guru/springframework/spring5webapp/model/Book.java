@@ -77,7 +77,7 @@ public class Book {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", authors=" + authors +
+//                ", authors=" + authors +
                 '}';
     }
 
@@ -94,7 +94,7 @@ public class Book {
 
     @Override
     public int hashCode() {
-        System.out.println("Book.hashcode()");
+        System.out.println("Book.hashcode()" + (getId() ^ (getId() >>> 32)));
         return (int) (getId() ^ (getId() >>> 32));
     }
 }

@@ -114,7 +114,7 @@ public class Publisher {
 
     @Override
     public int hashCode() {
-        System.out.println("Publisher.hashcode()");
+        System.out.println("Publisher.hashcode()" + getId().hashCode());
         return getId() != null ? getId().hashCode() : 0;
     }
 }
