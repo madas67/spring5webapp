@@ -1,9 +1,8 @@
 package guru.springframework.spring5webapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Publisher {
@@ -14,10 +13,15 @@ public class Publisher {
     private String name;
     private String address;
     private String city;
-    private String state:
+    private String state;
     private short zip;
 
+    @OneToMany
+    @JoinColumn(name = "publisher_id")
+    private Set<Book> books = new HashSet<>();
+
     public Publisher() {
+        System.out.println("empty Publisher constructor");
     }
 
     public Publisher(String name, String address, String city, String state, short zip) {
@@ -26,6 +30,15 @@ public class Publisher {
         this.city = city;
         this.state = state;
         this.zip = zip;
+        System.out.println("constructor Publisher{name[" + name + "], address[" + address + "], city[" + city + "], state[" + state + "], zip[" + zip + "]}");
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 
     public Long getId() {
@@ -90,6 +103,7 @@ public class Publisher {
 
     @Override
     public boolean equals(Object o) {
+        System.out.println("Publisher.equals()");
         if (this == o) return true;
         if (!(o instanceof Publisher)) return false;
 
@@ -100,6 +114,7 @@ public class Publisher {
 
     @Override
     public int hashCode() {
+        System.out.println("Publisher.hashcode()");
         return getId() != null ? getId().hashCode() : 0;
     }
 }

@@ -1,6 +1,7 @@
 package guru.springframework.spring5webapp.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,15 +16,27 @@ public class Book {
 
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> authors;
+    private Set<Author> authors = new HashSet<>();
 
+    @ManyToOne
+    private Publisher  publisher;
 
     public Book() {
+        System.out.println("empty Book constructor");
     }
 
     public Book(String title, String isbn) {
         this.title = title;
         this.isbn = isbn;
+        System.out.println("constructor Book{Title[" + title + "], ISBN[" + isbn + "]}");
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     public long getId() {
@@ -70,6 +83,7 @@ public class Book {
 
     @Override
     public boolean equals(Object o) {
+        System.out.println("Book.equals()");
         if (this == o) return true;
         if (!(o instanceof Book)) return false;
 
@@ -80,6 +94,7 @@ public class Book {
 
     @Override
     public int hashCode() {
+        System.out.println("Book.hashcode()");
         return (int) (getId() ^ (getId() >>> 32));
     }
 }
